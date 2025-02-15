@@ -1,6 +1,6 @@
 {
   "name": "sens-eye",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "files": [
@@ -31,5 +31,4 @@
   "publishConfig": {
     "access": "public"
   }
-
 }
