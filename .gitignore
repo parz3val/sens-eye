@@ -1,0 +1,6 @@
+node_modules/
+dist/
+eng.traineddata
+.npm
+pnpm-lock.yaml
+.DS_Store
