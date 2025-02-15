@@ -110,5 +110,5 @@
     "outDir": "./dist"
   },
   "include": ["src"],
-  "exclude": ["./dist", "node_modules", "target"]
+  "exclude": ["./dist", "node_modules"]
 }
