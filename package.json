@@ -1,8 +1,11 @@
 {
   "name": "sens-eye",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest --config jest.config.cjs",
     "build": "tsc",
