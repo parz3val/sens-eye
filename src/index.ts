@@ -11,7 +11,7 @@ import { blurImage } from "./image";
 const enum BlurOp {
   Success,
   Failure,
-  NoSensitiveInfo
+  NoSensitiveInfo,
 }
 
 /**
@@ -20,28 +20,40 @@ const enum BlurOp {
  * @param {string[]} keywords - An array of keywords to search for in the image.
  * @param {number} blurAmount - The amount of blur to apply to the image.
  * @returns {SensOcr} - A new SensOcr instance.
- * 
+ *
  * @example
  * const scanner = new SensOcr(['krispcall']);
  * await scanner.initialize();
  * const result = await scanner.checkSensitiveInfo("sample.png");
  * console.log(result);
- * 
- * 
- * 
+ *
+ *
+ *
  */
 class SensOcr {
   private worker!: Tesseract.Worker;
   private keywords: string[];
   private blurAmount: number;
+  private initialized: boolean = false;
 
   constructor(keywords: string[], blurAmount: number = 50) {
     this.blurAmount = blurAmount;
     this.keywords = keywords;
   }
 
+  ready(): boolean {
+    return this.initialized;
+  }
+
   async initialize(): Promise<void> {
     this.worker = await createWorker("eng");
+    this.initialized = true;
+  }
+
+  async reinitialize(lang: string | string[]): Promise<void> {
+    await this.worker.terminate();
+    this.worker = await createWorker(lang);
+    this.initialized = true;
   }
 
   setBlurAmount(blurAmount: number): void {
@@ -55,9 +67,9 @@ class SensOcr {
 
     const result = await this.worker.recognize(imagePath);
     const text = result.data.text.toLowerCase();
-    
-    return this.keywords.some(keyword => 
-      text.includes(keyword.toLowerCase())
+
+    return this.keywords.some((keyword) =>
+      text.includes(keyword.toLowerCase()),
     );
   }
 
@@ -74,8 +86,6 @@ class SensOcr {
     await blurImage(imagePath, this.blurAmount);
 
     return BlurOp.Success;
-
-
   }
 
   async cleanup(): Promise<void> {
