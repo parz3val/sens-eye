@@ -1,6 +1,6 @@
 {
   "name": "sens-eye",
-  "version": "1.0.5",
+  "version": "1.1.6",
   "description": "A library for detecting sensitive info in images using Tesseract.js",
   "type": "module",
   "main": "dist/index.js",
@@ -32,10 +32,34 @@
   },
   "dependencies": {
     "@types/sharp": "^0.32.0",
-    "sharp": "^0.33.5",
+    "sharp": "^0.32.6",
     "tesseract.js": "^6.0.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "win32",
+        "darwin",
+        "current",
+        "linux"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
+    },
+    "ignoredBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "tesseract.js"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "tesseract.js"
+    ]
   }
 }
